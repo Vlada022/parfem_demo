@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Parfimer.SM – Dekanti Originalnih Parfema</title>
+<link rel="stylesheet" href="/static/css/style.css">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- ── HEADER ── -->
+<header id="header">
+  <nav class="nav-container">
+    <a href="/" class="logo-link">
+      <img src="/static/img/logo.png" alt="Parfimer.SM" class="logo-img">
+    </a>
+    <ul class="nav-links">
+      <li><a href="#ponuda">Ponuda</a></li>
+      <li><a href="#o-nama">O nama</a></li>
+      <li><a href="#kontakt">Kontakt</a></li>
+    </ul>
+    <div class="nav-right">
+      <button class="cart-btn" onclick="toggleCart()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        <span class="cart-count" id="cart-count">0</span>
+      </button>
+      <button class="hamburger" id="hamburger" onclick="toggleMobileMenu()" aria-label="Meni">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+  <!-- Mobile menu -->
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="#ponuda" onclick="closeMobileMenu()">Ponuda</a>
+    <a href="#o-nama" onclick="closeMobileMenu()">O nama</a>
+    <a href="#kontakt" onclick="closeMobileMenu()">Kontakt</a>
+  </div>
+</header>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <p class="hero-overline">Ekskluzivni dekanti</p>
+    <h1 class="hero-title">Otkrijte svet<br><span class="gradient-text">originalnih parfema</span></h1>
+    <p class="hero-sub">Pažljivo odabrani dekanti svetskih brendova.<br>Probajte pre nego što kupite – u malim količinama, po pristupačnoj ceni.</p>
+    <a href="#ponuda" class="btn-primary">Pogledajte ponudu</a>
+  </div>
+  <div class="hero-scroll">
+    <span>Skrolujte</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ── FEATURES ── -->
+<section class="features">
+  <div class="container">
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">✦</div>
+        <h3>100% Originalni</h3>
+        <p>Svi parfemi su iz originalnih bočica poznatih svetskih brendova</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">◈</div>
+        <h3>Brza isporuka</h3>
+        <p>Slanje širom Srbije u roku od 1–3 radna dana</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">⬡</div>
+        <h3>Male količine</h3>
+        <p>Dekanti od 5ml do 50ml – probajte bez velikih troškova</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">◇</div>
+        <h3>Lična preporuka</h3>
+        <p>Pišite nam – pomažemo pri odabiru mirisa za vas</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PONUDA ── -->
+<section class="products-section" id="ponuda">
+  <div class="container">
+    <div class="section-header">
+      <p class="section-overline">Naša kolekcija</p>
+      <h2 class="section-title">Kompletna ponuda</h2>
+    </div>
+
+    <!-- Filteri -->
+    <div class="filters">
+      <div class="search-wrap">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" id="search-input" placeholder="Pretraži po nazivu ili brendu..." oninput="filterProducts()">
+      </div>
+      <div class="brand-filters" id="brand-filters">
+        <button class="brand-btn active" onclick="selectBrand('', this)">Svi brendovi</button>
+      </div>
+    </div>
+
+    <div class="products-grid" id="products-grid">
+      <div class="loading-state">
+        <div class="spinner"></div>
+        <p>Učitavanje...</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── O NAMA ── -->
+<section class="about" id="o-nama">
+  <div class="container">
+    <div class="about-inner">
+      <div class="about-text">
+        <p class="section-overline">Parfimer.SM</p>
+        <h2>Vaš pouzdani<br>partner za mirise</h2>
+        <p>Osnovan sa strašću prema parfumeriji, Parfimer.SM donosi svet luksuznih mirisa svakome ko želi da proba originale bez kompromisa u kvalitetu.</p>
+        <p>Naši dekanti su pažljivo punjeni direktno iz originalnih bočica. Svaki naručeni miris je zapečaćen i isporučen bezbedno do vaših vrata.</p>
+        <div class="about-stats">
+          <div class="stat"><span class="stat-num">50+</span><span>Brendova</span></div>
+          <div class="stat"><span class="stat-num">200+</span><span>Mirisa</span></div>
+          <div class="stat"><span class="stat-num">1000+</span><span>Zadovoljnih kupaca</span></div>
+        </div>
+      </div>
+      <div class="about-visual">
+        <div class="about-img-wrap">
+          <img src="https://images.unsplash.com/photo-1541643600914-78b084683702?w=600" alt="Parfemi">
+          <div class="about-badge">
+            <span>★</span>
+            <strong>Poverenje</strong>
+            <small>Kupaca</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── KONTAKT ── -->
+<section class="contact" id="kontakt">
+  <div class="container">
+    <div class="section-header">
+      <p class="section-overline">Javite nam se</p>
+      <h2 class="section-title">Kontaktirajte nas</h2>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-info">
+        <div class="contact-item">
+          <div class="contact-icon">✉</div>
+          <div>
+            <strong>Email</strong>
+            <span>parfimersm@gmail.com</span>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">☎</div>
+          <div>
+            <strong>Telefon / Viber / WhatsApp</strong>
+            <span>+381 60 000 0000</span>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">◷</div>
+          <div>
+            <strong>Radno vreme</strong>
+            <span>Pon–Sub: 09:00–21:00</span>
+          </div>
+        </div>
+        <div class="social-links">
+          <a href="#" class="social-btn fb">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+            Facebook
+          </a>
+          <a href="#" class="social-btn ig">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            Instagram
+          </a>
+          <a href="#" class="social-btn kp">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/></svg>
+            KupujemProdajem
+          </a>
+        </div>
+      </div>
+      <form class="contact-form" onsubmit="submitContact(event)">
+        <div class="form-group">
+          <label>Ime i prezime</label>
+          <input type="text" id="c-name" required placeholder="Vaše ime">
+        </div>
+        <div class="form-group">
+          <label>Email adresa</label>
+          <input type="email" id="c-email" required placeholder="vas@email.com">
+        </div>
+        <div class="form-group">
+          <label>Poruka</label>
+          <textarea id="c-message" required placeholder="Vaša poruka, pitanje ili zahtev za preporuku mirisa..." rows="5"></textarea>
+        </div>
+        <button type="submit" class="btn-primary" style="width:100%">Pošalji poruku</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <img src="/static/img/logo.png" alt="Parfimer.SM" class="footer-logo">
+        <p>Dekanti originalnih parfema<br>svetskih brendova</p>
+      </div>
+      <div class="footer-links-col">
+        <strong>Navigacija</strong>
+        <a href="#ponuda">Ponuda</a>
+        <a href="#o-nama">O nama</a>
+        <a href="#kontakt">Kontakt</a>
+      </div>
+      <div class="footer-links-col">
+        <strong>Pratite nas</strong>
+        <a href="#">Facebook</a>
+        <a href="#">Instagram</a>
+        <a href="#">KupujemProdajem</a>
+      </div>
+      <div class="footer-links-col">
+        <strong>Info</strong>
+        <span>Dostava: 1–3 radna dana</span>
+        <span>Plaćanje: pouzećem ili uplatnicom</span>
+        <span>Povrat: 14 dana</span>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2024 Parfimer.SM – Sva prava zadržana</p>
+      <a href="/admin/login" class="admin-link">Admin</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ── CART SIDEBAR ── -->
+<div class="cart-overlay" id="cart-overlay" onclick="toggleCart()"></div>
+<div class="cart-sidebar" id="cart-sidebar">
+  <div class="cart-header">
+    <h3>Vaša korpa</h3>
+    <button onclick="toggleCart()">✕</button>
+  </div>
+  <div class="cart-items" id="cart-items-list">
+    <div class="cart-empty">
+      <div class="cart-empty-icon">◇</div>
+      <p>Korpa je prazna</p>
+    </div>
+  </div>
+  <div class="cart-footer" id="cart-footer" style="display:none">
+    <div class="cart-total">
+      <span>Ukupno:</span>
+      <strong id="cart-total-price">0 RSD</strong>
+    </div>
+    <button class="btn-primary" onclick="openCheckout()" style="width:100%">Naruči</button>
+  </div>
+</div>
+
+<!-- ── CHECKOUT MODAL ── -->
+<div class="modal-overlay" id="checkout-overlay">
+  <div class="modal" id="checkout-modal">
+    <div class="modal-header">
+      <h3>Podaci za naručivanje</h3>
+      <button onclick="closeCheckout()">✕</button>
+    </div>
+    <form id="checkout-form" onsubmit="placeOrder(event)">
+      <div class="modal-body">
+        <div class="order-summary" id="order-summary"></div>
+        <h4 style="margin:1.5rem 0 1rem">Podaci za dostavu</h4>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Ime i prezime <span class="req">*</span></label>
+            <input type="text" id="o-name" required placeholder="Petar Petrović">
+          </div>
+          <div class="form-group">
+            <label>Email adresa <span class="req">*</span></label>
+            <input type="email" id="o-email" required placeholder="petar@email.com">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Kontakt telefon <span class="req">*</span></label>
+          <input type="tel" id="o-phone" required placeholder="+381 60 000 0000">
+        </div>
+        <div class="form-row">
+          <div class="form-group" style="flex:2">
+            <label>Ulica <span class="req">*</span></label>
+            <input type="text" id="o-street" required placeholder="Knez Mihailova">
+          </div>
+          <div class="form-group" style="flex:0.7">
+            <label>Broj <span class="req">*</span></label>
+            <input type="text" id="o-street-number" required placeholder="12">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Mesto <span class="req">*</span></label>
+            <input type="text" id="o-city" required placeholder="Beograd">
+          </div>
+          <div class="form-group">
+            <label>Poštanski broj <span class="req">*</span></label>
+            <input type="text" id="o-postal" required placeholder="11000">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Napomena (opciono)</label>
+          <textarea id="o-note" placeholder="Posebna uputstva za dostavu..." rows="3"></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn-secondary" onclick="closeCheckout()">Nazad</button>
+        <button type="submit" class="btn-primary">Potvrdi narudžbinu</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ── SUCCESS MODAL ── -->
+<div class="modal-overlay" id="success-overlay">
+  <div class="modal modal-sm">
+    <div class="success-content">
+      <div class="success-icon">✓</div>
+      <h3>Uspešno ste naručili!</h3>
+      <p>Hvala vam na narudžbini. Bićete kontaktirani što pre.</p>
+      <button class="btn-primary" onclick="closeSuccess()">Zatvori</button>
+    </div>
+  </div>
+</div>
+
+<script src="/static/js/main.js"></script>
+</body>
+</html>

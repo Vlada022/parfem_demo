@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Panel – Parfimer.SM</title>
+<link rel="stylesheet" href="/static/css/style.css">
+<link rel="stylesheet" href="/static/css/admin.css">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body class="admin-body">
+
+<aside class="admin-sidebar">
+  <div class="admin-logo">
+    <img src="/static/img/logo.png" alt="Parfimer.SM" style="width:60px">
+    <span>Admin</span>
+  </div>
+  <nav class="admin-nav">
+    <a href="#" class="admin-nav-item active" onclick="showTab('products', this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+      Proizvodi
+    </a>
+    <a href="#" class="admin-nav-item" onclick="showTab('orders', this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4zM3 6h18M16 10a4 4 0 01-8 0"/></svg>
+      Narudžbine
+    </a>
+    <a href="#" class="admin-nav-item" onclick="showTab('contacts', this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      Poruke
+    </a>
+  </nav>
+  <div class="admin-sidebar-footer">
+    <a href="/" class="btn-secondary" style="width:100%;text-align:center;margin-bottom:.5rem">← Sajt</a>
+    <button onclick="logout()" class="btn-outline" style="width:100%">Odjavi se</button>
+  </div>
+</aside>
+
+<main class="admin-main">
+
+  <!-- PRODUCTS TAB -->
+  <div id="tab-products" class="admin-tab active">
+    <div class="admin-page-header">
+      <div>
+        <h1>Proizvodi</h1>
+        <p class="admin-sub">Upravljanje dekantima parfema</p>
+      </div>
+      <button class="btn-primary" onclick="openProductModal()">+ Dodaj proizvod</button>
+    </div>
+    <div class="admin-table-wrap">
+      <table class="admin-table" id="products-table">
+        <thead>
+          <tr>
+            <th>Slika</th>
+            <th>Naziv</th>
+            <th>Brend</th>
+            <th>ML</th>
+            <th>Cena</th>
+            <th>Stanje</th>
+            <th>Status</th>
+            <th>Akcije</th>
+          </tr>
+        </thead>
+        <tbody id="products-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ORDERS TAB -->
+  <div id="tab-orders" class="admin-tab">
+    <div class="admin-page-header">
+      <div>
+        <h1>Narudžbine</h1>
+        <p class="admin-sub">Pregled i upravljanje narudžbinama</p>
+      </div>
+      <div class="order-stats" id="order-stats"></div>
+    </div>
+    <div class="admin-table-wrap">
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Datum</th>
+            <th>Kupac</th>
+            <th>Kontakt</th>
+            <th>Adresa</th>
+            <th>Stavke</th>
+            <th>Ukupno</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="orders-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- CONTACTS TAB -->
+  <div id="tab-contacts" class="admin-tab">
+    <div class="admin-page-header">
+      <div>
+        <h1>Poruke</h1>
+        <p class="admin-sub">Poruke primljene putem kontakt forme</p>
+      </div>
+    </div>
+    <div id="contacts-list" class="contacts-grid"></div>
+  </div>
+</main>
+
+<!-- PRODUCT MODAL -->
+<div class="modal-overlay" id="product-overlay">
+  <div class="modal modal-lg">
+    <div class="modal-header">
+      <h3 id="product-modal-title">Dodaj proizvod</h3>
+      <button onclick="closeProductModal()">✕</button>
+    </div>
+    <form id="product-form" onsubmit="saveProduct(event)" enctype="multipart/form-data">
+      <input type="hidden" id="p-id">
+      <div class="modal-body">
+        <div class="form-row">
+          <div class="form-group" style="flex:2">
+            <label>Naziv parfema <span class="req">*</span></label>
+            <input type="text" id="p-name" required placeholder="npr. Sauvage">
+          </div>
+          <div class="form-group">
+            <label>Brend <span class="req">*</span></label>
+            <input type="text" id="p-brand" required placeholder="npr. Dior">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Opis</label>
+          <textarea id="p-desc" rows="3" placeholder="Opis mirisa, note, karakter..."></textarea>
+        </div>
+        <div class="form-group">
+          <label>Dostupne količine i cene <span class="req">*</span></label>
+          <div class="ml-options-grid">
+            <div class="ml-option-row" data-ml="5">
+              <label class="ml-checkbox-label">
+                <input type="checkbox" class="ml-check" value="5" onchange="toggleMlPrice(this)">
+                <span class="ml-chip">5 ml</span>
+              </label>
+              <div class="ml-price-wrap" style="display:none">
+                <input type="number" class="ml-price-input" placeholder="Cena (RSD)" min="1">
+              </div>
+            </div>
+            <div class="ml-option-row" data-ml="10">
+              <label class="ml-checkbox-label">
+                <input type="checkbox" class="ml-check" value="10" onchange="toggleMlPrice(this)">
+                <span class="ml-chip">10 ml</span>
+              </label>
+              <div class="ml-price-wrap" style="display:none">
+                <input type="number" class="ml-price-input" placeholder="Cena (RSD)" min="1">
+              </div>
+            </div>
+            <div class="ml-option-row" data-ml="20">
+              <label class="ml-checkbox-label">
+                <input type="checkbox" class="ml-check" value="20" onchange="toggleMlPrice(this)">
+                <span class="ml-chip">20 ml</span>
+              </label>
+              <div class="ml-price-wrap" style="display:none">
+                <input type="number" class="ml-price-input" placeholder="Cena (RSD)" min="1">
+              </div>
+            </div>
+            <div class="ml-option-row" data-ml="9999">
+              <label class="ml-checkbox-label">
+                <input type="checkbox" class="ml-check" value="9999" onchange="toggleMlPrice(this)">
+                <span class="ml-chip">Ceo parfem</span>
+              </label>
+              <div class="ml-price-wrap" style="display:none">
+                <input type="number" class="ml-price-input" placeholder="Cena (RSD)" min="1">
+              </div>
+            </div>
+          </div>
+          <div id="ml-options-error" class="form-error" style="display:none">Označite bar jednu količinu.</div>
+        </div>
+        <div class="form-group">
+          <label>Slika</label>
+          <div class="img-upload-wrap">
+            <div class="img-preview" id="img-preview">
+              <span>Prevucite sliku ili kliknite</span>
+            </div>
+            <input type="file" id="p-image" accept="image/*" onchange="previewImage(this)">
+            <p class="form-hint">ili</p>
+            <input type="text" id="p-image-url" placeholder="URL slike (npr. https://...)">
+          </div>
+        </div>
+        <div class="form-group" id="p-active-wrap" style="display:none">
+          <label class="checkbox-label">
+            <input type="checkbox" id="p-active" checked>
+            Proizvod je aktivan (vidljiv na sajtu)
+          </label>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn-secondary" onclick="closeProductModal()">Otkaži</button>
+        <button type="submit" class="btn-primary" id="product-save-btn">Sačuvaj</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="/static/js/admin.js"></script>
+</body>
+</html>

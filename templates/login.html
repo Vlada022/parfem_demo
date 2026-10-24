@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Prijava – Parfimer.SM</title>
+<link rel="stylesheet" href="/static/css/style.css">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body class="auth-page">
+<div class="auth-container">
+  <a href="/" class="logo-link">
+    <img src="/static/img/logo.png" alt="Parfimer.SM" style="width:100px;margin-bottom:1.5rem">
+  </a>
+  <h2>Admin prijava</h2>
+  <p class="auth-sub">Samo za ovlašćene korisnike</p>
+  <form onsubmit="doLogin(event)" class="auth-form">
+    <div class="form-group">
+      <label>Korisničko ime</label>
+      <input type="text" id="l-user" required autocomplete="username" placeholder="admintest123">
+    </div>
+    <div class="form-group">
+      <label>Lozinka</label>
+      <input type="password" id="l-pass" required autocomplete="current-password" placeholder="••••••••">
+    </div>
+    <div id="login-error" class="form-error" style="display:none"></div>
+    <button type="submit" class="btn-primary" style="width:100%">Prijavi se</button>
+  </form>
+  <a href="/" class="back-link">← Nazad na sajt</a>
+</div>
+<script>
+async function doLogin(e) {
+  e.preventDefault();
+  const err = document.getElementById('login-error');
+  err.style.display = 'none';
+  const res = await fetch('/api/login', {
+    method: 'POST',
+    headers: {'Content-Type':'application/json'},
+    body: JSON.stringify({username: document.getElementById('l-user').value, password: document.getElementById('l-pass').value})
+  });
+  const data = await res.json();
+  if (res.ok) {
+    window.location.href = '/admin';
+  } else {
+    err.textContent = data.error;
+    err.style.display = 'block';
+  }
+}
+</script>
+</body>
+</html>
